@@ -1,12 +1,15 @@
 //
 //  LFViewController.m
-//  LFSDK
+//  LFProxy3
 //
-//  Created by Andre Green on 7/24/14.
-//  Copyright (c) 2014 ___FULLUSERNAME___. All rights reserved.
+//  Created by Andre Green on 7/16/14.
+//  Copyright (c) 2014 Andre Green. All rights reserved.
 //
 
 #import "LFViewController.h"
+#import "LFLocalProxyServer.h"
+#import "LFConnection.h"
+
 
 @interface LFViewController ()
 
@@ -17,7 +20,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    
+    
+	self.signatures = [[NSMutableArray alloc] init];
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 }
 
 - (void)didReceiveMemoryWarning
@@ -25,5 +33,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)makeConnection:(id)sender {
+    
+    NSURL *url = [NSURL URLWithString:@"https://www.google.com"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    [self.webview loadRequest:request];
+    
+    NSURL *url1 = [NSURL URLWithString:@"http://www.yahoo.com"];
+    NSURLRequest *request1 = [NSURLRequest requestWithURL:url1];
+    
+    //[self.webview1 loadRequest:request1];
+    
+}
+
 
 @end
