@@ -1,18 +1,24 @@
 //
 //  LFAppDelegate.m
-//  LFSDK
+//  LFProxy3
 //
-//  Created by Andre Green on 7/24/14.
-//  Copyright (c) 2014 ___FULLUSERNAME___. All rights reserved.
+//  Created by Andre Green on 7/16/14.
+//  Copyright (c) 2014 Andre Green. All rights reserved.
 //
 
 #import "LFAppDelegate.h"
+#import "LFURLProtocol.h"
+#import "LFLocalProxyServer.h"
 
 @implementation LFAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [NSURLProtocol registerClass:[LFURLProtocol class]];
+    
+    self.server = [[LFLocalProxyServer alloc] initWithAddress:@"127.0.0.1" andPort:10000];
+    [self.server start];
+    
     return YES;
 }
 							

@@ -12,15 +12,21 @@
 		6512C138198188C400B3E3AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6512C137198188C400B3E3AB /* UIKit.framework */; };
 		6512C13E198188C400B3E3AB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6512C13C198188C400B3E3AB /* InfoPlist.strings */; };
 		6512C140198188C400B3E3AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C13F198188C400B3E3AB /* main.m */; };
-		6512C144198188C400B3E3AB /* LFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C143198188C400B3E3AB /* LFAppDelegate.m */; };
-		6512C147198188C400B3E3AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6512C145198188C400B3E3AB /* Main.storyboard */; };
-		6512C14A198188C400B3E3AB /* LFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C149198188C400B3E3AB /* LFViewController.m */; };
 		6512C14C198188C400B3E3AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6512C14B198188C400B3E3AB /* Images.xcassets */; };
 		6512C153198188C400B3E3AB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6512C152198188C400B3E3AB /* XCTest.framework */; };
 		6512C154198188C400B3E3AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6512C133198188C400B3E3AB /* Foundation.framework */; };
 		6512C155198188C400B3E3AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6512C137198188C400B3E3AB /* UIKit.framework */; };
 		6512C15D198188C400B3E3AB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6512C15B198188C400B3E3AB /* InfoPlist.strings */; };
 		6512C15F198188C400B3E3AB /* LFSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C15E198188C400B3E3AB /* LFSDKTests.m */; };
+		6512C179198188EA00B3E3AB /* LFLocalProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C169198188EA00B3E3AB /* LFLocalProxyServer.m */; };
+		6512C17A198188EA00B3E3AB /* LFURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C16B198188EA00B3E3AB /* LFURLProtocol.m */; };
+		6512C17B198188EA00B3E3AB /* LFRequestQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C16D198188EA00B3E3AB /* LFRequestQueue.m */; };
+		6512C17C198188EA00B3E3AB /* LFNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C16F198188EA00B3E3AB /* LFNode.m */; };
+		6512C17D198188EA00B3E3AB /* LFConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C171198188EA00B3E3AB /* LFConnection.m */; };
+		6512C17E198188EA00B3E3AB /* LFProtocolStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C173198188EA00B3E3AB /* LFProtocolStore.m */; };
+		6512C17F198188EA00B3E3AB /* LFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C175198188EA00B3E3AB /* LFAppDelegate.m */; };
+		6512C180198188EA00B3E3AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6512C176198188EA00B3E3AB /* Main.storyboard */; };
+		6512C181198188EA00B3E3AB /* LFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C178198188EA00B3E3AB /* LFViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,17 +48,29 @@
 		6512C13D198188C400B3E3AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6512C13F198188C400B3E3AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6512C141198188C400B3E3AB /* LFSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LFSDK-Prefix.pch"; sourceTree = "<group>"; };
-		6512C142198188C400B3E3AB /* LFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFAppDelegate.h; sourceTree = "<group>"; };
-		6512C143198188C400B3E3AB /* LFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFAppDelegate.m; sourceTree = "<group>"; };
-		6512C146198188C400B3E3AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6512C148198188C400B3E3AB /* LFViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFViewController.h; sourceTree = "<group>"; };
-		6512C149198188C400B3E3AB /* LFViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFViewController.m; sourceTree = "<group>"; };
 		6512C14B198188C400B3E3AB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6512C151198188C400B3E3AB /* LFSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LFSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6512C152198188C400B3E3AB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6512C15A198188C400B3E3AB /* LFSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LFSDKTests-Info.plist"; sourceTree = "<group>"; };
 		6512C15C198188C400B3E3AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6512C15E198188C400B3E3AB /* LFSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFSDKTests.m; sourceTree = "<group>"; };
+		6512C168198188EA00B3E3AB /* LFLocalProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLocalProxyServer.h; sourceTree = "<group>"; };
+		6512C169198188EA00B3E3AB /* LFLocalProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLocalProxyServer.m; sourceTree = "<group>"; };
+		6512C16A198188EA00B3E3AB /* LFURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFURLProtocol.h; sourceTree = "<group>"; };
+		6512C16B198188EA00B3E3AB /* LFURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFURLProtocol.m; sourceTree = "<group>"; };
+		6512C16C198188EA00B3E3AB /* LFRequestQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFRequestQueue.h; sourceTree = "<group>"; };
+		6512C16D198188EA00B3E3AB /* LFRequestQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFRequestQueue.m; sourceTree = "<group>"; };
+		6512C16E198188EA00B3E3AB /* LFNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFNode.h; sourceTree = "<group>"; };
+		6512C16F198188EA00B3E3AB /* LFNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFNode.m; sourceTree = "<group>"; };
+		6512C170198188EA00B3E3AB /* LFConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFConnection.h; sourceTree = "<group>"; };
+		6512C171198188EA00B3E3AB /* LFConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFConnection.m; sourceTree = "<group>"; };
+		6512C172198188EA00B3E3AB /* LFProtocolStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFProtocolStore.h; sourceTree = "<group>"; };
+		6512C173198188EA00B3E3AB /* LFProtocolStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFProtocolStore.m; sourceTree = "<group>"; };
+		6512C174198188EA00B3E3AB /* LFAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFAppDelegate.h; sourceTree = "<group>"; };
+		6512C175198188EA00B3E3AB /* LFAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFAppDelegate.m; sourceTree = "<group>"; };
+		6512C176198188EA00B3E3AB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		6512C177198188EA00B3E3AB /* LFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFViewController.h; sourceTree = "<group>"; };
+		6512C178198188EA00B3E3AB /* LFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +130,23 @@
 		6512C139198188C400B3E3AB /* LFSDK */ = {
 			isa = PBXGroup;
 			children = (
-				6512C142198188C400B3E3AB /* LFAppDelegate.h */,
-				6512C143198188C400B3E3AB /* LFAppDelegate.m */,
-				6512C145198188C400B3E3AB /* Main.storyboard */,
-				6512C148198188C400B3E3AB /* LFViewController.h */,
-				6512C149198188C400B3E3AB /* LFViewController.m */,
+				6512C168198188EA00B3E3AB /* LFLocalProxyServer.h */,
+				6512C169198188EA00B3E3AB /* LFLocalProxyServer.m */,
+				6512C16A198188EA00B3E3AB /* LFURLProtocol.h */,
+				6512C16B198188EA00B3E3AB /* LFURLProtocol.m */,
+				6512C16C198188EA00B3E3AB /* LFRequestQueue.h */,
+				6512C16D198188EA00B3E3AB /* LFRequestQueue.m */,
+				6512C16E198188EA00B3E3AB /* LFNode.h */,
+				6512C16F198188EA00B3E3AB /* LFNode.m */,
+				6512C170198188EA00B3E3AB /* LFConnection.h */,
+				6512C171198188EA00B3E3AB /* LFConnection.m */,
+				6512C172198188EA00B3E3AB /* LFProtocolStore.h */,
+				6512C173198188EA00B3E3AB /* LFProtocolStore.m */,
+				6512C174198188EA00B3E3AB /* LFAppDelegate.h */,
+				6512C175198188EA00B3E3AB /* LFAppDelegate.m */,
+				6512C176198188EA00B3E3AB /* Main.storyboard */,
+				6512C177198188EA00B3E3AB /* LFViewController.h */,
+				6512C178198188EA00B3E3AB /* LFViewController.m */,
 				6512C14B198188C400B3E3AB /* Images.xcassets */,
 				6512C13A198188C400B3E3AB /* Supporting Files */,
 			);
@@ -229,9 +259,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6512C180198188EA00B3E3AB /* Main.storyboard in Resources */,
 				6512C14C198188C400B3E3AB /* Images.xcassets in Resources */,
 				6512C13E198188C400B3E3AB /* InfoPlist.strings in Resources */,
-				6512C147198188C400B3E3AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,9 +280,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6512C144198188C400B3E3AB /* LFAppDelegate.m in Sources */,
+				6512C17F198188EA00B3E3AB /* LFAppDelegate.m in Sources */,
+				6512C17E198188EA00B3E3AB /* LFProtocolStore.m in Sources */,
+				6512C181198188EA00B3E3AB /* LFViewController.m in Sources */,
+				6512C17A198188EA00B3E3AB /* LFURLProtocol.m in Sources */,
+				6512C17D198188EA00B3E3AB /* LFConnection.m in Sources */,
 				6512C140198188C400B3E3AB /* main.m in Sources */,
-				6512C14A198188C400B3E3AB /* LFViewController.m in Sources */,
+				6512C179198188EA00B3E3AB /* LFLocalProxyServer.m in Sources */,
+				6512C17B198188EA00B3E3AB /* LFRequestQueue.m in Sources */,
+				6512C17C198188EA00B3E3AB /* LFNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,14 +317,6 @@
 				6512C13D198188C400B3E3AB /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6512C145198188C400B3E3AB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6512C146198188C400B3E3AB /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		6512C15B198188C400B3E3AB /* InfoPlist.strings */ = {
