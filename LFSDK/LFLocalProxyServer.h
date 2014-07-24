@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LFConnection.h"
+#include <netinet/in.h>
 
 @interface LFLocalProxyServer : NSObject<LFConnectionDelegate>
 
@@ -18,6 +19,7 @@
 
 @property(nonatomic, copy)NSString *localIPAddress;
 @property(nonatomic, copy)NSString* foreignIPAddress;
+@property(nonatomic, copy)NSString *hostName;
 
 @property(nonatomic, assign)int localPort;
 @property(nonatomic, assign)int foreignPort;
@@ -37,5 +39,9 @@
 -(id)initWithAddress:(NSString*)address andPort:(int)port;
 -(void)start;
 -(CFSocketSignature)createSocketSignitureForSocket:(int)socketfd;
+-(void)bindLocalSocketToLocalPort:(int *)errorPtr;
+-(int)createListeningSocketForClientAtAddress:(struct sockaddr_in *)address;
+-(NSData*)receivedLocalDataOnSocket:(int)socket withError:(int *)error;
+-(void)addHeadersToOutGoingMessage:(NSMutableData*)messageData;
 
 @end

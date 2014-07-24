@@ -53,41 +53,9 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        BOOL foundPort = NO;
         int error;
         
-        while (!foundPort) {
-            // server will look for open port and assign it to address data
-            self.localFD = socket(AF_INET, SOCK_STREAM, 0);
-            
-            struct sockaddr_in address;
-            memset(&address, 0, sizeof(address));
-            address.sin_len = sizeof(address);
-            address.sin_family = PF_INET;
-            address.sin_port = self.localPort;
-            address.sin_addr.s_addr = inet_addr([self.localIPAddress UTF8String]);
-            
-            error = bind(self.localFD, (struct sockaddr*)&address, sizeof(address));
-            
-            if (error == 0) {
-                
-                self.localAddressData = [NSData dataWithBytes:&address length:sizeof(address)];
-                
-                struct sockaddr_in *serverAddress = (struct sockaddr_in*)self.localAddressData.bytes;
-                
-                char *ipstr = malloc(INET_ADDRSTRLEN);
-                struct in_addr *ipv4addr = &serverAddress->sin_addr;
-                ipstr = inet_ntoa(*ipv4addr);
-                
-                NSLog(@"address bound to socket: %d, at address: %s, on port: %d", self.localFD, ipstr, [self getLocalSocketPort]);
-                foundPort = YES;
-            }
-            else{
-                
-                NSLog(@"ERROR BINDING SOCKET TO ADDRESS");
-                self.localPort++;
-            }
-        }
+        [self bindLocalSocketToLocalPort:&error];
         
         error = listen(self.localFD, 10);
         
@@ -100,9 +68,6 @@
         
         struct sockaddr_in fromAddress;
         
-        char buffer[MAX_BUFFER_SIZE];
-        
-        unsigned int fromAddressSize = sizeof(fromAddress);
         
         
         // server should loop through this code forever.
@@ -113,74 +78,10 @@
 
         while (shouldContinue) {
             
-            int listeningSocket = accept(self.localFD, (struct sockaddr*)&fromAddress, &fromAddressSize);
+            int listeningSocket = [self createListeningSocketForClientAtAddress:&fromAddress];
+
+            NSMutableData *receivedData = [[self receivedLocalDataOnSocket:listeningSocket withError:&error] mutableCopy];
             
-            if (listeningSocket < 0) {
-                
-                char b[256];
-                int errorNum = strerror_r(errno, b, sizeof(b));
-                NSLog(@"errno: %d", errorNum);
-                NSLog(@"ERROR -- could not accept communication on listening socket: %d", listeningSocket);
-            }
-            else{
-                
-                NSLog(@"Accepting communication on listening socket");
-            }
-            
-            NSLog(@"handling client %s", inet_ntoa(fromAddress.sin_addr));
-            
-            
-            BOOL receivingData = YES;
-            NSMutableData *receivedData = [[NSMutableData alloc] init];
-            
-            while(receivingData){
-                
-                error = (int)recv(listeningSocket, buffer, MAX_BUFFER_SIZE, 0);
-                
-                if (error < 0) {
-                    
-                    NSLog(@"ERROR -- receiving data");
-                    receivingData = NO;
-                }
-                else {
-                    
-                    NSLog(@"receiving %d bytes of data", error);
-                    NSLog(@"buffer contains: %s", buffer);
-                    
-                    [receivedData appendBytes:buffer length:error];
-                    
-                    
-                    if (error <= MAX_BUFFER_SIZE) {
-                        
-                        receivingData = NO;
-                    }
-                }
-            }
-            
-            CFHTTPMessageRef incomingMessage = CFHTTPMessageCreateEmpty(CFAllocatorGetDefault(), TRUE);
-            
-            UInt8 dataIn[receivedData.length];
-            int *dataStart = [receivedData mutableBytes];
-            
-            memcpy(&dataIn, dataStart, receivedData.length);
-            
-            NSString *host;
-            
-            if (!CFHTTPMessageAppendBytes(incomingMessage, dataIn, receivedData.length)) {
-                
-                NSLog(@"could not deserialize CFHTTPMessage");
-            }
-            else{
-                
-                CFDictionaryRef cfHeaders = CFHTTPMessageCopyAllHeaderFields(incomingMessage);
-                NSDictionary *headers = (__bridge_transfer NSDictionary*)cfHeaders;
-                NSLog(@"server has recieved headers:\n%@", headers);
-                
-                host = [headers objectForKey:@"Host"];
-            }
-            
-            NSString *serverReadString = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-            NSLog(@"server has read in: %@", serverReadString);
             
             //loop to send/receive data to/from foreign host
             //will process with LFConnection
@@ -192,7 +93,7 @@
                 
                 if (!self.isConnectedToHost) {
                     
-                    self.foreignConnection = [[LFConnection alloc] initWithHostName:host port:(int)[self getForeignPort:host] andProtocol:[self getProtocolForHost:host]];
+                    self.foreignConnection = [[LFConnection alloc] initWithHostName:self.hostName port:(int)[self getForeignPort:self.hostName] andProtocol:[self getProtocolForHost:self.hostName]];
                     self.foreignConnection.delegate = self;
                     self.foreignConnection.outData = receivedData;
                     [self.foreignConnection connect];
@@ -359,6 +260,126 @@
     return protocol;
 }
 
+-(void)bindLocalSocketToLocalPort:(int *)errorPtr{
+    
+    BOOL foundPort = NO;
+
+    while (!foundPort) {
+        // server will look for open port and assign it to address data
+        self.localFD = socket(AF_INET, SOCK_STREAM, 0);
+        
+        struct sockaddr_in address;
+        memset(&address, 0, sizeof(address));
+        address.sin_len = sizeof(address);
+        address.sin_family = PF_INET;
+        address.sin_port = self.localPort;
+        address.sin_addr.s_addr = inet_addr([self.localIPAddress UTF8String]);
+        
+        *errorPtr = bind(self.localFD, (struct sockaddr*)&address, sizeof(address));
+        
+        if (*errorPtr == 0) {
+            
+            self.localAddressData = [NSData dataWithBytes:&address length:sizeof(address)];
+            
+            struct sockaddr_in *serverAddress = (struct sockaddr_in*)self.localAddressData.bytes;
+            
+            char *ipstr = malloc(INET_ADDRSTRLEN);
+            struct in_addr *ipv4addr = &serverAddress->sin_addr;
+            ipstr = inet_ntoa(*ipv4addr);
+            
+            NSLog(@"address bound to socket: %d, at address: %s, on port: %d", self.localFD, ipstr, [self getLocalSocketPort]);
+            foundPort = YES;
+        }
+        else{
+            
+            NSLog(@"error binding to socket address on port: %d", self.localPort);
+            self.localPort++;
+        }
+    }
+}
+
+-(int)createListeningSocketForClientAtAddress:(struct sockaddr_in *)address{
+    
+    unsigned int fromAddressSize = sizeof(*address);
+
+    int listeningSocket = accept(self.localFD, (struct sockaddr*)address, &fromAddressSize);
+    
+    if (listeningSocket < 0) {
+        
+        char b[256];
+        int errorNum = strerror_r(errno, b, sizeof(b));
+        NSLog(@"errno: %d", errorNum);
+        NSLog(@"ERROR -- could not accept communication on listening socket: %d", listeningSocket);
+    }
+    else{
+        
+        NSLog(@"Accepting communication on listening socket");
+    }
+    
+    NSLog(@"handling client %s", inet_ntoa(address->sin_addr));
+    
+    return listeningSocket;
+}
+
+-(NSData*)receivedLocalDataOnSocket:(int)socket withError:(int *)error{
+    
+    BOOL receivingData = YES;
+    NSMutableData *receivedData = [[NSMutableData alloc] init];
+    
+    char buffer[MAX_BUFFER_SIZE];
+    
+    while(receivingData){
+        
+        *error = (int)recv(socket, buffer, MAX_BUFFER_SIZE, 0);
+        
+        if (*error < 0) {
+            
+            NSLog(@"ERROR -- receiving data");
+            receivingData = NO;
+        }
+        else {
+            
+            NSLog(@"receiving %d bytes of data", *error);
+            NSLog(@"buffer contains: %s", buffer);
+            
+            [receivedData appendBytes:buffer length:*error];
+            
+            
+            if (*error <= MAX_BUFFER_SIZE) {
+                
+                receivingData = NO;
+            }
+        }
+    }
+    
+    return receivedData;
+}
+
+-(void)addHeadersToOutGoingMessage:(NSMutableData *)messageData{
+    
+    CFHTTPMessageRef incomingMessage = CFHTTPMessageCreateEmpty(CFAllocatorGetDefault(), TRUE);
+    
+    UInt8 dataIn[messageData.length];
+    int *dataStart = [messageData mutableBytes];
+    
+    memcpy(&dataIn, dataStart, messageData.length);
+    
+    if (!CFHTTPMessageAppendBytes(incomingMessage, dataIn, messageData.length)) {
+        
+        NSLog(@"could not deserialize CFHTTPMessage");
+    }
+    else{
+        
+        CFDictionaryRef cfHeaders = CFHTTPMessageCopyAllHeaderFields(incomingMessage);
+        NSDictionary *headers = (__bridge_transfer NSDictionary*)cfHeaders;
+        NSLog(@"server has recieved headers:\n%@", headers);
+        
+        self.hostName = [headers objectForKey:@"Host"];
+    }
+    
+    NSString *serverReadString = [[NSString alloc] initWithData:messageData encoding:NSUTF8StringEncoding];
+    NSLog(@"server has read in: %@\nfrom host: %@", serverReadString, self.hostName);
+}
 
 #pragma mark - LFConnection Delegate Methods
 
